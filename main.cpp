@@ -52,7 +52,6 @@ void InitMat (CMatrix & Mat, unsigned NbLine, unsigned NbColumn, CPosition & Pos
     // + GENERER BOMBE
 }//InitMat ()
 
-
 /*!
  * \brief Display the matrix
  * \param[in] Mat the matrix to be displayed
@@ -207,7 +206,6 @@ void MoveToken (CMatrix & Mat, char Move, CPosition & Pos, CConfig & config)
     }
     Mat[Pos.first][Pos.second] = car;
 } //MoveToken ()
-
 
 /*!
  * \brief New main programm
