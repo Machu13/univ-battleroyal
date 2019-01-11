@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -66,17 +67,17 @@ void LoadConfig(CConfig & Param)
     }
 }
 
-int readInt32(CConfig & Param, const string & Val)
+const int readInt32(CConfig & Param, const string & Val)
 {
     return Param.MapParamUnsigned[Val];
 }
 
-char readChar(CConfig & Param, const string & Val)
+const char readChar(CConfig & Param, const string & Val)
 {
     return Param.MapParamChar[Val];
 }
 
-string readString(CConfig & Param, const string & Val)
+const string readString(CConfig & Param, const string & Val)
 {
     return Param.MapParamString[Val];
 }
