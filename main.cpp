@@ -163,9 +163,49 @@ void ShowMatrix (const CMatrix & Mat, CConfig & config, const unsigned BR)
  * \param[in] Move the key pressed by the user
  * \param[in, out] Pos the player's position before and after the move
  */
-void MoveToken (CMatrix & Mat, char Move, CPosition & Pos)
+void MoveToken (CMatrix & Mat, char Move, CPosition & Pos, CConfig & config)
 {
-    // MATHIAS
+    char car = Mat[Pos.first][Pos.second];
+    Mat[Pos.first][Pos.second] = readChar(config, "KEmpty");
+    unsigned Size = Mat.size() - 1;
+    Move = tolower(Move);
+    if ('z' == Move && 0 != Pos.first)
+    {
+        --Pos.first;
+    }
+    else if ('s' == Move && Size != Pos.first)
+    {
+        ++Pos.first;
+    }
+    else if ('q' == Move && 0 != Pos.second)
+    {
+        --Pos.second;
+    }
+    else if ('d' == Move && Size != Pos.second)
+    {
+        ++Pos.second;
+    }
+    else if ('a' == Move && 0 != Pos.second && 0 != Pos.first)
+    {
+        --Pos.first;
+        --Pos.second;
+    }
+    else if ('e' == Move && Size != Pos.second && 0 != Pos.first)
+    {
+        --Pos.first;
+        ++Pos.second;
+    }
+    else if ('w' == Move && 0 != Pos.second && Size != Pos.first)
+    {
+        ++Pos.first;
+        --Pos.second;
+    }
+    else if ('c' == Move && Size != Pos.second && Size != Pos.first)
+    {
+        ++Pos.first;
+        ++Pos.second;
+    }
+    Mat[Pos.first][Pos.second] = car;
 } //MoveToken ()
 
 
@@ -204,7 +244,7 @@ int ppal (void)
         cin >> Move;
 
         Move = toupper (Move);
-        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
+        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2), config);
         ClearScreen();
         ShowMatrix (Mat, config, BR);
 
@@ -213,7 +253,7 @@ int ppal (void)
 
         //Increase party's number
         ++PartyNum;
-        ++BR;
+        //TODO//++BR;
 
         //Player changing
         Player1Turn = !Player1Turn;
