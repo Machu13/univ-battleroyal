@@ -57,10 +57,9 @@ void InitMat (CMatrix & Mat, unsigned NbLine, unsigned NbColumn, CPosition & Pos
  * \brief Display the matrix
  * \param[in] Mat the matrix to be displayed
  */
-void ShowMatrix (const CMatrix & Mat, CConfig & config)
+void ShowMatrix (const CMatrix & Mat, CConfig & config, const unsigned BR)
 {
-    const int BR = 0;
-    const string    KBordurePre    = "95";
+    const string    KBordurePre    = "103";
     const string    KBordurePost   = "101";
     const char KGaz          = ' ';
     const char KE = readChar(config, "KEmpty");
@@ -183,6 +182,7 @@ int ppal (void)
     const unsigned KSize (10);
     unsigned PartyNum (1);
     const unsigned KMaxPartyNum (KSize * KSize);
+    unsigned BR = 0;
     CMatrix Mat;
 
     bool Player1Turn (true);
@@ -192,7 +192,7 @@ int ppal (void)
 
     InitMat (Mat, KSize, KSize, PosPlayer1, PosPlayer2, config) ;
 
-    ShowMatrix (Mat, config);
+    ShowMatrix (Mat, config, BR);
 
     while (PartyNum <= KMaxPartyNum && ! Victory)
     {
@@ -206,13 +206,14 @@ int ppal (void)
         Move = toupper (Move);
         MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
         ClearScreen();
-        ShowMatrix (Mat, config);
+        ShowMatrix (Mat, config, BR);
 
         //Victiry test
         if (PosPlayer1 == PosPlayer2) Victory = true;
 
         //Increase party's number
         ++PartyNum;
+        ++BR;
 
         //Player changing
         Player1Turn = !Player1Turn;
