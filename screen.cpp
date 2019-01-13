@@ -29,3 +29,12 @@ string Screen::center (const std::string & text)
     ioctl (STDOUT_FILENO, TIOCGWINSZ, & w);
     return string ((w.ws_col - text.length()) / 2, ' ') + text;
 }
+
+vector<string> Screen::square (const std::string & text)
+{
+    vector<string> squaredTxt;
+    squaredTxt.push_back (string (text.size() + 4, '-'));
+    squaredTxt.push_back ("| " + text + " |");
+    squaredTxt.push_back (string (text.size() + 4, '-'));
+    return squaredTxt;
+}

@@ -4,7 +4,7 @@
 #include <termios.h>
 #include "ioutils.h"
 
-struct termios saved_attributes;
+static struct termios saved_attributes;
 
 void IO::reset_input_mode (void)
 {
