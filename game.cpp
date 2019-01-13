@@ -4,8 +4,8 @@
 #include "config.h"
 #include "screen.h"
 #include "gridmanager.h"
-//#include "ioutils.h"
-//#include "menu.cpp"
+#include "ioutils.h"
+#include "menu.cpp"
 
 using namespace std;
 
@@ -56,9 +56,8 @@ void Game::MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config
 
 int Game::ppal ()
 {
-//    IO::set_input_mode();
-//    MainMenu();
-//    return 0;
+    Menu::ShowMainMenu();
+    IO::set_input_mode();
     CConfig configFile;
     Config config = Config (configFile);
     config.InitConfig ();
@@ -96,11 +95,20 @@ int Game::ppal ()
         Grid::DisplayGrid (Mat, config, BR);
 
         //Victiry test
-        if (PosPlayer1 == PosPlayer2) Victory = true;
+        if (PosPlayer1 == PosPlayer2)
+            Victory = true;
+        if ( ( (PosPlayer1.first <= BR) || (PosPlayer1.first >= KSize-BR) ) && ( (PosPlayer2.first <= BR) || (PosPlayer2.first >= KSize-BR) )
+             && ( ( (PosPlayer1.second <= BR ) || (PosPlayer1.second >= KSize-BR) ) && ( (PosPlayer2.second <= BR) || (PosPlayer2.second >= KSize-BR) ) ) )
+             break;
+        if ( (PosPlayer1.first <= BR) || (PosPlayer1.first >= KSize-BR) && ( (PosPlayer1.second <= BR ) || (PosPlayer1.second >= KSize-BR) ) )
+            Victory = true;
+        if ( (PosPlayer2.first <= BR) || (PosPlayer2.first >= KSize-BR) && ( (PosPlayer2.second <= BR ) || (PosPlayer2.second >= KSize-BR) ) )
+            Victory = true;
+        //Increase party's number
 
         //Increase party's number
         ++PartyNum;
-        //TODO//++BR;
+        ++BR;
 
         //Player changing
         Player1Turn = !Player1Turn;
