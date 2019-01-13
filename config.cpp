@@ -8,7 +8,32 @@
 
 using namespace std;
 
-void InitConfig(CConfig & Param)
+Config::Config (CConfig & Param)
+{
+    this->Param = Param;
+}
+
+CConfig Config::getConfig()
+{
+    return this->Param;
+}
+
+int Config::readInt32(const string & Val)
+{
+    return Param.MapParamUnsigned[Val];
+}
+
+char Config::readChar(const string & Val)
+{
+    return Param.MapParamChar[Val];
+}
+
+const string Config::readString(const string & Val)
+{
+    return Param.MapParamString[Val];
+}
+
+void Config::InitConfig()
 {
     //Move Keys
     Param.MapParamChar["KeyUp"] = 'z';
@@ -22,8 +47,8 @@ void InitConfig(CConfig & Param)
     Param.MapParamChar["KTokenPlayer1"] = 'X';
     Param.MapParamChar["KTokenPlayer2"] = 'O';
     Param.MapParamChar["KEmpty"] = ' ';
-    Param.MapParamChar["KTokenBomb"] = '¤';
-    Param.MapParamChar["KTokenSpeed"] = '‡';
+    Param.MapParamChar["KTokenBomb"] = '#';
+    Param.MapParamChar["KTokenSpeed"] = '/';
 
     //Size of grid -- suppose to be squared
     Param.MapParamUnsigned["GridSize"] = 10;
@@ -41,7 +66,7 @@ void InitConfig(CConfig & Param)
     Param.MapParamString["BorderColor"] = KColor.find("KRed")->second;
 }
 
-void LoadConfig(CConfig & Param)
+void Config::LoadConfig()
 {
     ifstream ifs("config.yml");
     if (!ifs.is_open())
@@ -64,21 +89,11 @@ void LoadConfig(CConfig & Param)
             ifs >> Val;
             Param.MapParamString[Key] = KColor.find(Val)->second;
         }
+        else
+        {
+            // Et merci le partiel du 12/01
+            string buffer;
+            ifs >> buffer;
+        }
     }
 }
-
-const int readInt32(CConfig & Param, const string & Val)
-{
-    return Param.MapParamUnsigned[Val];
-}
-
-const char readChar(CConfig & Param, const string & Val)
-{
-    return Param.MapParamChar[Val];
-}
-
-const string readString(CConfig & Param, const string & Val)
-{
-    return Param.MapParamString[Val];
-}
-

@@ -3,40 +3,25 @@
 
 #include "type.h"
 
-/**
- * @brief InitConfig
- * @param Param
- */
-void InitConfig (CConfig & Param);
+class Config {
+private:
+    CConfig Param;
+public:
 
-/**
- * @brief LoadConfig
- * @param Param
- */
-void LoadConfig (CConfig & Param);
+    Config (CConfig & Param);
 
-/**
- * @brief readInt32
- * @param Param
- * @param Val
- * @return
- */
-const int readInt32(CConfig & Param, const std::string & Val);
+    void InitConfig ();
 
-/**
- * @brief readChar
- * @param Param
- * @param Val
- * @return
- */
-const char readChar(CConfig & Param, const std::string & Val);
+    void LoadConfig ();
 
-/**
- * @brief readString
- * @param Param
- * @param Val
- * @return
- */
-const std::string readString(CConfig & Param, const std::string & Val);
+    int readInt32(const std::string & Val);
+
+    char readChar(const std::string & Val);
+
+    const std::string readString(const std::string & Val);
+
+    CConfig getConfig();
+
+};
 
 #endif // CONFIG_H
