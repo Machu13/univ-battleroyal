@@ -7,49 +7,88 @@
 #include "type.h"
 #include "config.h"
 #include "screen.h"
+#include "menu.h"
 
 using namespace std;
 
-void MainMenu ()
+char Menu::GetChoice ()
 {
-    cout << endl << Screen::center (string (15, '-')) << endl;
+    char tmp;
+    cin >> tmp;
+    return tmp;
+}
+
+void Menu::MainMenu ()
+{
+    cout << endl << Screen::center (string (26, '-')) << endl;
     cout << Screen::center (string (5, '-') + string (5, ' ') +" Menu " + string (5, ' ') + string (5, '-')) << endl;
-    cout << Screen::center (string (15, '-')) << endl << endl;
-    cout << Screen::center ("1. Jouer") << endl;
-    cout << Screen::center ("2. Paramètres de jeu") << endl;
-    cout << Screen::center ("3. Crédits") << endl;
-    cout << Screen::center ("4. Faire un bronx") << endl;
-    cout << Screen::center ("5. Quitter") << endl;
+    cout << Screen::center (string (26, '-')) << endl << endl;
+    for (const string & text : Screen::square ("1. Jouer"))
+        cout << Screen::center (text) << endl;
+    for (const string & text : Screen::square ("2. Paramètres de jeu"))
+        cout << Screen::center (text) << endl;
+    for (const string & text : Screen::square ("3. Crédits"))
+        cout << Screen::center (text) << endl;
+    for (const string & text : Screen::square ("4. Faire un bronx"))
+        cout << Screen::center (text) << endl;
+    for (const string & text : Screen::square ("5. Quitter"))
+        cout << Screen::center (text) << endl;
+//    cout << Screen::center ("1. Jouer") << endl;
+//    cout << Screen::center ("2. Paramètres de jeu") << endl;
+//    cout << Screen::center ("3. Crédits") << endl;
+//    cout << Screen::center ("4. Faire un bronx") << endl;
+//    cout << Screen::center ("5. Quitter") << endl;
 }
 
-struct termios saved_attributes;
-
-void reset_input_mode (void)
+void Menu::ConfigMenu ()
 {
-  tcsetattr (STDIN_FILENO, TCSANOW, &saved_attributes);
+
 }
 
-void set_input_mode (void)
+void Menu::CreditsMenu ()
 {
-  struct termios tattr;
-  char *name;
 
-  /* Make sure stdin is a terminal. */
-  if (!isatty (STDIN_FILENO))
-    {
-      fprintf (stderr, "Not a terminal.\n");
-      exit (EXIT_FAILURE);
+}
+
+void Menu::ShowConfigMenu ()
+{
+    while (true) {
+        Screen::ClearScreen ();
+        ConfigMenu ();
     }
-
-  /* Save the terminal attributes so we can restore them later. */
-  tcgetattr (STDIN_FILENO, &saved_attributes);
-  atexit (reset_input_mode);
-
-  /* Set the funny terminal modes. */
-  tcgetattr (STDIN_FILENO, &tattr);
-  tattr.c_lflag &= ~(ICANON|ECHO); /* Clear ICANON and ECHO. */
-  tattr.c_cc[VMIN] = 1;
-  tattr.c_cc[VTIME] = 0;
-  tcsetattr (STDIN_FILENO, TCSAFLUSH, &tattr);
 }
 
+void Menu::ShowCreditsMenu ()
+{
+
+}
+
+void Menu::ShowPecheMignonDeMarc ()
+{
+
+}
+
+void Menu::ShowMainMenu ()
+{
+    while (true) {
+        Screen::ClearScreen();
+        MainMenu();
+        char choice (GetChoice ());
+        switch (choice) {
+            case '1':
+                Screen::ClearScreen();
+                return;
+            case '2':
+                ShowConfigMenu ();
+                break;
+            case '3':
+                ShowCreditsMenu ();
+                break;
+            case '4':
+                ShowPecheMignonDeMarc ();
+                break;
+            case '5':
+                exit(0);
+        }
+    }
+}
