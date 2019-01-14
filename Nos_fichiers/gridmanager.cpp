@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <time.h>
 #include "type.h"
 #include "config.h"
 #include "screen.h"
@@ -7,21 +9,53 @@
 
 using namespace std;
 
-void Grid::InitGrid (CMatrix & Mat, unsigned NbLine, unsigned NbColumn, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params)
+CPosition Grid::BombsGenerator (CMatrix & Mat, Config & Params)
 {
-    Mat.resize (NbLine);
-    const CVLine KLine (NbColumn, Params.readChar("KEmpty"));
+    CPosition bomb;
+    srand (time (NULL));
+    unsigned x = rand() % Mat.size();
+    srand (time (NULL) + time (NULL) / 6);
+    unsigned y = rand() % Mat.size();
+    if (Mat[x][y] != Params.readChar("KEmpty"))
+        return BombsGenerator (Mat, Params);
+    bomb.first = x;
+    bomb.second = y;
+    return bomb;
+}
+
+CPosition Grid::SpeedLootsGenerator (CMatrix & Mat, Config & Params)
+{
+    CPosition speed;
+    srand (time (NULL));
+    unsigned x = rand() % Mat.size();
+    srand (time (NULL) + time (NULL) / 6);
+    unsigned y = rand() % Mat.size();
+    if (Mat[x][y] != Params.readChar("KEmpty"))
+        return BombsGenerator (Mat, Params);
+    speed.first = x;
+    speed.second = y;
+    return speed;
+}
+
+void Grid::InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params)
+{
+    Mat.resize (Size);
+    const CVLine KLine (Size, Params.readChar("KEmpty"));
     for (CVLine &ALine : Mat)
         ALine = KLine;
 
     PosPlayer1.first = 0;
-    PosPlayer1.second = NbColumn - 1;
+    PosPlayer1.second = Size - 1;
     Mat [PosPlayer1.first][PosPlayer1.second]   = Params.readChar("KTokenPlayer1");
-    PosPlayer2.first = NbLine - 1;
-    PosPlayer2.second =0;
+    PosPlayer2.first = Size - 1;
+    PosPlayer2.second = 0;
     Mat [PosPlayer2.first][PosPlayer2.second]   = Params.readChar("KTokenPlayer2");
 
-    // + GENERER BOMBE
+    unsigned bomb (Mat.size() / 10) ;
+    for (unsigned i (0); i < bomb; ++i)
+        Params.getConfig().bombs.push_back(BombsGenerator (Mat, Params));
+    for (unsigned i (0); i < bomb * 3 / 2; ++i)
+        Params.getConfig().speed.push_back(SpeedLootsGenerator (Mat, Params));
 } // InitGrid ()
 
 void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border)
