@@ -22,4 +22,5 @@ HEADERS += \
     Nos_fichiers/game.h \
     Nos_fichiers/screen.h \
     Nos_fichiers/gridmanager.h \
+    Nos_fichiers/menu.h \
     Nos_fichiers/ioutils.h
