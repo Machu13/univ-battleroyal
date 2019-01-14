@@ -16,7 +16,7 @@ public:
 
     static void InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
 
-    static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border);
+    static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border,  const bool & PreBorder = false);
 
 };
 

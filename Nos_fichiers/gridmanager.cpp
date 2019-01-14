@@ -12,9 +12,9 @@ using namespace std;
 CPosition Grid::BombsGenerator (CMatrix & Mat, Config & Params)
 {
     CPosition bomb;
-    srand (time (NULL));
+    srand (time (nullptr));
     unsigned x = rand() % Mat.size();
-    srand (time (NULL) + time (NULL) / 6);
+    srand (time (nullptr) + time (nullptr) / 6);
     unsigned y = rand() % Mat.size();
     if (Mat[x][y] != Params.readChar("KEmpty"))
         return BombsGenerator (Mat, Params);
@@ -27,9 +27,9 @@ CPosition Grid::BombsGenerator (CMatrix & Mat, Config & Params)
 CPosition Grid::SpeedLootsGenerator (CMatrix & Mat, Config & Params)
 {
     CPosition speed;
-    srand (time (NULL) + rand() * rand());
+    srand (time (nullptr) + rand() * rand());
     unsigned x = rand() % Mat.size();
-    srand (time (NULL) + time (NULL) / 6 + rand() * rand());
+    srand (time (nullptr) + time (nullptr) / 6 + rand() * rand());
     unsigned y = rand() % Mat.size();
     if (Mat[x][y] != Params.readChar("KEmpty"))
         return BombsGenerator (Mat, Params);
@@ -60,7 +60,7 @@ void Grid::InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosi
         Params.getConfig().speed.push_back(SpeedLootsGenerator (Mat, Params));
 } // InitGrid ()
 
-void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border)
+void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border, const bool & PreBorder)
 {
     const string    KBordurePre    = "103";
     const string    KBordurePost   = "101";
@@ -92,41 +92,52 @@ void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Bor
         {
             char c = Mat[i][j];
             cout << " │ ";
-            if (i < Border || i > TailleMAT - Border - 1)
+            if (PreBorder && (i < Border || i > TailleMAT - Border - 1))
             {
-                c = KGaz;
+                Screen::Color(KBordurePre);
+                cout << c;
+                Screen::Color (Screen::getColor ("Reset"));
+            }
+            else if (! PreBorder && (i < Border || i > TailleMAT - Border - 1))
+            {
                 Screen::Color(KBordurePost);
-                if(c == KE)
-                    cout << c;
-                else if(c == KTP1)
-                {
-                    Screen::Color (KBordurePre);
-                    cout << c;
-                    Screen::Color (Screen::getColor ("Reset"));
-                }
-                else if(c == KTP2)
-                {
-                    Screen::Color (KBordurePre);
-                    cout << c;
-                    Screen::Color (Screen::getColor ("Reset"));
-                }
-                else if(c == KB)
-                {
-                    Screen::Color (KBordurePre);
-                    cout << c;
-                    Screen::Color (Screen::getColor ("Reset"));
-                }
-                else if(c == KS)
-                {
-                    Screen::Color (KBordurePre);
-                    cout << c;
-                    Screen::Color (Screen::getColor ("Reset"));
-                }
+                cout << c;
                 Screen::Color (Screen::getColor ("Reset"));
             }
             else
             {
-                if (j < Border || j > TailleMAT - Border - 1)
+                if (PreBorder && (j < Border || j > TailleMAT - Border - 1))
+                {
+                    Screen::Color(KBordurePre);
+                    if(c == KE)
+                        cout << c;
+                    else if(c == KTP1)
+                    {
+                        Screen::Color (Params.readString("KColorPlayer1"));
+                        cout << c;
+                        Screen::Color (Screen::getColor ("Reset"));
+                    }
+                    else if(c == KTP2)
+                    {
+                        Screen::Color (Params.readString("KColorPlayer2"));
+                        cout << c;
+                        Screen::Color (Screen::getColor ("Reset"));
+                    }
+                    else if(c == KB)
+                    {
+                        Screen::Color (Params.readString("KColorBomb"));
+                        cout << c;
+                        Screen::Color (Screen::getColor ("Reset"));
+                    }
+                    else if(c == KS)
+                    {
+                        Screen::Color (Params.readString("KColorSpeed"));
+                        cout << c;
+                        Screen::Color (Screen::getColor ("Reset"));
+                    }
+                    Screen::Color (Screen::getColor ("Reset"));
+                }
+                else if (! PreBorder && (j < Border || j > TailleMAT - Border - 1))
                 {
                     Screen::Color(KBordurePost);
                     if(c == KE)

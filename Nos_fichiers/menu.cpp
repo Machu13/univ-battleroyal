@@ -189,7 +189,6 @@ void Menu::ShowPecheMignonDeMarc ()
 
 void Menu::ShowMainMenu ()
 {
-    IO::set_input_mode ();
     unsigned nbr (0);
     while (true) {
         Screen::ClearScreen();
