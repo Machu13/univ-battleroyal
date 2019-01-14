@@ -15,38 +15,38 @@ void Game::MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config
     Mat[Pos.first][Pos.second] = config.readChar("KEmpty");
     unsigned Size = Mat.size() - 1;
     Move = tolower(Move);
-    if ('z' == Move && 0 != Pos.first)
+    if (config.readChar("KeyUp") == Move && 0 != Pos.first)
     {
         --Pos.first;
     }
-    else if ('s' == Move && Size != Pos.first)
+    else if (config.readChar("KeyDown") == Move && Size != Pos.first)
     {
         ++Pos.first;
     }
-    else if ('q' == Move && 0 != Pos.second)
+    else if (config.readChar("KeyLeft") == Move && 0 != Pos.second)
     {
         --Pos.second;
     }
-    else if ('d' == Move && Size != Pos.second)
+    else if (config.readChar("KeyRight") == Move && Size != Pos.second)
     {
         ++Pos.second;
     }
-    else if ('a' == Move && 0 != Pos.second && 0 != Pos.first)
+    else if (config.readChar("KeyUpLeft") == Move && 0 != Pos.second && 0 != Pos.first)
     {
         --Pos.first;
         --Pos.second;
     }
-    else if ('e' == Move && Size != Pos.second && 0 != Pos.first)
+    else if (config.readChar("KeyUpRight") == Move && Size != Pos.second && 0 != Pos.first)
     {
         --Pos.first;
         ++Pos.second;
     }
-    else if ('w' == Move && 0 != Pos.second && Size != Pos.first)
+    else if (config.readChar("KeyDownLeft") == Move && 0 != Pos.second && Size != Pos.first)
     {
         ++Pos.first;
         --Pos.second;
     }
-    else if ('c' == Move && Size != Pos.second && Size != Pos.first)
+    else if (config.readChar("KeyDownRight") == Move && Size != Pos.second && Size != Pos.first)
     {
         ++Pos.first;
         ++Pos.second;
