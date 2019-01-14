@@ -40,6 +40,10 @@ struct CConfig {
     std::map <std::string, unsigned> MapParamUnsigned;
     /** List of parameters of type string */
     std::map <std::string, std::string> MapParamString;
+    /** List of bombs on the map */
+    std::vector <CPosition> bombs;
+    /** List of loots on the map (especialy speed's loots) */
+    std::vector <CPosition> speed;
 };
 
 /**
