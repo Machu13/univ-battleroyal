@@ -74,7 +74,7 @@ int Game::ppal ()
 
     CPosition PosPlayer1, PosPlayer2;
 
-    Grid::InitGrid (Mat, KSize, KSize, PosPlayer1, PosPlayer2, config) ;
+    Grid::InitGrid (Mat, KSize, PosPlayer1, PosPlayer2, config) ;
 
     Grid::DisplayGrid (Mat, config, BR);
 
