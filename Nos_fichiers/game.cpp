@@ -58,11 +58,13 @@ void Game::MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config
 
 int Game::ppal (const bool & SkipMenu)
 {
+    // Firewall again Alain
+    IO::bloc_sig ();
     // Noncanon stream
-    IO::set_input_mode();
+    IO::set_input_mode ();
     // Show Main Menu
     if (! SkipMenu)
-        Menu::ShowMainMenu();
+        Menu::ShowMainMenu ();
     // Init config
     CConfig configFile;
     Config config = Config (configFile);
@@ -74,7 +76,7 @@ int Game::ppal (const bool & SkipMenu)
     const unsigned KMaxRoundNum (4 * KSize - 4);
     const unsigned KNbTourAvantGaz ( KMaxRoundNum / ( ( KSize / 2 ) + 1 ) );
     unsigned Border (0), Gagnant (0), NbV (0);
-    bool PreBorder (false), Player1Turn (true), State (true);
+    bool PreBorder (false), Player1Turn (true);
 
     Score score = Score ("../univ-battleroyal/Nos_fichiers/score.txt");
     if (! score.ReadScoreFile())
