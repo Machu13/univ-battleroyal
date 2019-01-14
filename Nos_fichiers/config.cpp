@@ -48,7 +48,7 @@ void Config::InitConfig()
     Param.MapParamChar["KTokenPlayer2"] = 'O';
     Param.MapParamChar["KEmpty"] = ' ';
     Param.MapParamChar["KTokenBomb"] = '#';
-    Param.MapParamChar["KTokenSpeed"] = '/';
+    Param.MapParamChar["KTokenSpeed"] = 'i';
 
     //Size of grid -- suppose to be squared
     Param.MapParamUnsigned["GridSize"] = 10;
