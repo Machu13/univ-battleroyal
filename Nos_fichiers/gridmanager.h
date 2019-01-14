@@ -8,9 +8,9 @@ class Grid
 {
 private:
 
-    static void BombsGenerator (CMatrix & Mat, Config & Params);
+    static CPosition BombsGenerator (CMatrix & Mat, Config & Params);
 
-    static void SpeedLootsGenerator (CMatrix & Mat, Config & Params);
+    static CPosition SpeedLootsGenerator (CMatrix & Mat, Config & Params);
 
 public:
 
