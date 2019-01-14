@@ -10,7 +10,7 @@ public:
 
     static void MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config);
 
-    static int ppal();
+    static int ppal(const bool & SkipMenu = false);
 
 };
 

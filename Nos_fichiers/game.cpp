@@ -1,11 +1,13 @@
 #include <iostream>
 #include <string>
+#include <regex>
 #include "game.h"
 #include "config.h"
 #include "screen.h"
 #include "gridmanager.h"
 #include "ioutils.h"
-#include "menu.cpp"
+#include "menu.h"
+#include "score.h"
 
 using namespace std;
 
@@ -54,12 +56,13 @@ void Game::MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config
     Mat[Pos.first][Pos.second] = car;
 } // MoveToken ()
 
-int Game::ppal ()
+int Game::ppal (const bool & SkipMenu)
 {
     // Noncanon stream
     IO::set_input_mode();
     // Show Main Menu
-    Menu::ShowMainMenu();
+    if (! SkipMenu)
+        Menu::ShowMainMenu();
     // Init config
     CConfig configFile;
     Config config = Config (configFile);
@@ -67,13 +70,18 @@ int Game::ppal ()
     config.LoadConfig ("../univ-battleroyal/Nos_fichiers/config.yml");
     // Vars
     const unsigned KSize (config.readInt32("GridSize"));
-    unsigned PartyNum (0);
-    const unsigned KMaxPartyNum (4 * KSize - 4);
-    const unsigned KNbTourAvantGaz ( KMaxPartyNum / ( ( KSize / 2 ) + 1 ) );
-    unsigned Border (0);
-    bool PreBorder (false);
-    unsigned Gagnant (0);
-    bool Player1Turn (true);
+    unsigned RoundNum (0);
+    const unsigned KMaxRoundNum (4 * KSize - 4);
+    const unsigned KNbTourAvantGaz ( KMaxRoundNum / ( ( KSize / 2 ) + 1 ) );
+    unsigned Border (0), Gagnant (0), NbV (0);
+    bool PreBorder (false), Player1Turn (true), State (true);
+
+    Score score = Score ("../univ-battleroyal/Nos_fichiers/score.txt");
+    if (! score.ReadScoreFile())
+    {
+        cerr << "Le fichier score.txt n'existe pas !" << endl;
+        return 1;
+    }
 
     CMatrix Mat;
     CPosition PosPlayer1, PosPlayer2;
@@ -82,78 +90,132 @@ int Game::ppal ()
 
     Grid::DisplayGrid (Mat, config, Border);
 
-    while (! false) // <3
+    while (RoundNum <= KMaxRoundNum)
     {
-        (Player1Turn ? Screen::Color(config.readString("KColorPlayer1")) : Screen::Color(config.readString("KColorPlayer2")));
-        cout << "Joueur" << (Player1Turn ? '1' : '2') << ", entrez un déplacement : " << PartyNum;
+        cout << "Tour numero : " << RoundNum << endl;
+        Screen::Color (config.readString("KColorPlayer" + string (1, (Player1Turn ? '1' : '2'))));
+        cout << "Joueur" << (Player1Turn ? '1' : '2') << endl << "Entrez un deplacement : ";
         Screen::Color (Screen::getColor ("Reset"));
 
+        bool CorrectMove (false);
         char Move;
         cin >> Move;
-
         Move = toupper (Move);
-        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2), config);
-
-        Screen::ClearScreen();
-        Grid::DisplayGrid (Mat, config, Border, PreBorder);
-
-        //Victiry test
-        if (PosPlayer1 == PosPlayer2)
+        regex pattern ("^Key");
+        // Beaucoup de complexitude pour pas grand chose.
+        // Mais au moins c'est plus opti que un grand if avec plein de OU
+        for (const auto & Val : config.getConfig().MapParamChar)
+            for (sregex_iterator regIt (sregex_iterator(Val.first.begin(), Val.first.end(), pattern));
+                 regIt != sregex_iterator (); ++ regIt)
+                if (Move == toupper(Val.second))
+                    CorrectMove = true;
+        if (CorrectMove)
         {
-            Gagnant=(Player1Turn ? 1 : 2);
-            break;
-        }
-        if ((! PreBorder
-             && (   (PosPlayer1.first  + 1) <= Border || PosPlayer1.first  >= (KSize - Border)
-                 || (PosPlayer1.second + 1) <= Border || PosPlayer1.second >= (KSize - Border))
-             && (   (PosPlayer2.first  + 1) <= Border || PosPlayer2.first  >= (KSize - Border)
-                 || (PosPlayer2.second + 1) <= Border || PosPlayer2.second >= (KSize - Border))))
-            break;
-        else if (! PreBorder
-             && (   (PosPlayer1.first  + 1) <= Border || PosPlayer1.first  >= (KSize - Border)
-                 || (PosPlayer1.second + 1) <= Border || PosPlayer1.second >= (KSize - Border)))
-        {
-            Gagnant = 2;
-            break;
-        }
-        else if (! PreBorder
-             && (   (PosPlayer2.first  + 1) <= Border || PosPlayer2.first  >= (KSize - Border)
-                 || (PosPlayer2.second + 1) <= Border || PosPlayer2.second >= (KSize - Border)))
-        {
-            Gagnant = 1;
-            break;
-        }
+            MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2), config);
+            Screen::ClearScreen();
+            Grid::DisplayGrid (Mat, config, Border, PreBorder);
+            Screen::Color (config.readString("KColorPlayer" + string (1, (Player1Turn ? '1' : '2'))));
+            if (Move == toupper(config.readChar("KeyStayHere")))
+                cout << "Joueur n° " << (Player1Turn ? '1' : '2') << " dit : \"JE RESTE PLANTE LA\"" << endl;
+            else
+                cout << "Joueur n° " << (Player1Turn ? '1' : '2') << ", au tour precedent, a fait : " << Move << endl;
+            Screen::Color (Screen::getColor ("Reset"));
 
-        // Increase party's number
-        ++PartyNum;
+            // Victory test
+            if (PosPlayer1 == PosPlayer2)
+            {
+                Gagnant = (Player1Turn ? 1 : 2);
+                break;
+            }
+            if ((! PreBorder
+                 && (   (PosPlayer1.first  + 1) <= Border || PosPlayer1.first  >= (KSize - Border)
+                     || (PosPlayer1.second + 1) <= Border || PosPlayer1.second >= (KSize - Border))
+                 && (   (PosPlayer2.first  + 1) <= Border || PosPlayer2.first  >= (KSize - Border)
+                     || (PosPlayer2.second + 1) <= Border || PosPlayer2.second >= (KSize - Border))))
+                break;
+            else if (! PreBorder
+                 && (   (PosPlayer1.first  + 1) <= Border || PosPlayer1.first  >= (KSize - Border)
+                     || (PosPlayer1.second + 1) <= Border || PosPlayer1.second >= (KSize - Border)))
+            {
+                Gagnant = 2;
+                break;
+            }
+            else if (! PreBorder
+                 && (   (PosPlayer2.first  + 1) <= Border || PosPlayer2.first  >= (KSize - Border)
+                     || (PosPlayer2.second + 1) <= Border || PosPlayer2.second >= (KSize - Border)))
+            {
+                Gagnant = 1;
+                break;
+            }
 
-        // Gaz size increasing
-        if ((PartyNum + 2) % (KNbTourAvantGaz) == 0)
-        {
-            ++Border;
-            PreBorder = ! PreBorder;
-        }
-        else if ((PartyNum) % (KNbTourAvantGaz) == 0)
-        {
-            PreBorder = ! PreBorder;
-        }
+            // Increase Round's number
+            ++ RoundNum;
 
-        // Player changing
-        Player1Turn = !Player1Turn;
+            // Gaz size increasing
+            if ((RoundNum + 2) % (KNbTourAvantGaz) == 0)
+            {
+                ++ Border;
+                PreBorder = ! PreBorder;
+            }
+            else if ((RoundNum) % (KNbTourAvantGaz) == 0)
+                PreBorder = ! PreBorder;
+
+            // Player changing
+            Player1Turn = !Player1Turn;
+        }
+        else
+        {
+            Screen::ClearScreen ();
+            Grid::DisplayGrid(Mat, config, Border);
+            cout << "!! Veuillez entrer un deplacement correct !!" << endl << endl;
+        }
     }
 
-    switch (Gagnant) {
-    case 0:
-        cout << "Aucun winner" << endl;
-        break;
-    case 1 :
-        cout << "Joueur 1 gagnant !" << endl;
-        break;
-    case 2 :
-        cout << "Joueur 2 gagnant " << endl;
-        break;
-    default:
-        break;
+    while (! false)  // <3
+    {
+        Screen::ClearScreen ();
+        Screen::Color (config.readString("KColorVictory"));
+        cout << Screen::center (" _    _ _____ ______ _______ _____  ______  _     _ ")    << endl;
+        cout << Screen::center ("| |  | (_____) _____|_______) ___ \\(_____ \\| |   | |")  << endl;
+        cout << Screen::center ("| |  | |  _ | /      _     | |   | |_____) ) |___| |")    << endl;
+        cout << Screen::center (" \\ \\/ /  | || |     | |    | |   | (_____ ( \\_____/ ") << endl;
+        cout << Screen::center ("  \\  /  _| || \\_____| |____| |___| |     | |  ___   ")  << endl;
+        cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
+        cout << endl << endl;
+        switch (Gagnant) {
+        case 0:
+            Screen::Color (config.readString("KColorLose"));
+            cout << Screen::center ("Aucun vainqueur") << endl;
+            break;
+        case 1:
+            cout << Screen::center ("Le Joueur n° 1 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
+            score.WriteScoreFile(1, NbV);
+            break;
+        case 2:
+            cout << Screen::center ("Le Joueur n° 2 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
+            score.WriteScoreFile(2, NbV);
+            break;
+        }
+        score.CloseScoreFile();
+        for (const string & text : Screen::square (string (5, ' ') + "Voulez-faire la revanche ?" + string (5, ' ')))
+            cout << Screen::center (text) << endl;
+        for (const string & text : Screen::square ("1. Prendre sa revanche !"))
+            cout << Screen::center (text) << endl;
+        for (const string & text : Screen::square ("2. Fuir et abdiquer..."))
+            cout << Screen::center (text) << endl;
+        char choiceRe;
+        cin >> choiceRe;
+        switch (choiceRe) {
+            case '1':
+                Screen::Color (Screen::getColor("Reset"));
+                Game::ppal (true);
+                break;
+            case '2':
+                Screen::Color (Screen::getColor("Reset"));
+                return 0;
+            default:
+                cout << "Ayer la sincérité de fuir avec classe en appuyant sur 2 ..." << endl;
+                return 0;
+        }
     }
-    return 0;
 } // ppal ()

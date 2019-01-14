@@ -10,11 +10,13 @@ SOURCES += \
     Nos_fichiers/screen.cpp \
     Nos_fichiers/gridmanager.cpp \
     Nos_fichiers/menu.cpp \
-    Nos_fichiers/ioutils.cpp
+    Nos_fichiers/ioutils.cpp \
+    Nos_fichiers/score.cpp
     
 DISTFILES += \
     Nos_fichiers/config.yml \
-    Nos_fichiers/bronx.txt
+    Nos_fichiers/bronx.txt \
+    Nos_fichiers/score.txt
 
 HEADERS += \
     Nos_fichiers/config.h \
@@ -23,4 +25,5 @@ HEADERS += \
     Nos_fichiers/screen.h \
     Nos_fichiers/gridmanager.h \
     Nos_fichiers/menu.h \
-    Nos_fichiers/ioutils.h
+    Nos_fichiers/ioutils.h \
+    Nos_fichiers/score.h
