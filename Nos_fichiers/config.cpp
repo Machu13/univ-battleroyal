@@ -37,13 +37,14 @@ void Config::InitConfig()
 {
     //Move Keys
     Param.MapParamChar["KeyUp"] = 'z';
-    Param.MapParamChar["KeyDown"] = 's';
+    Param.MapParamChar["KeyDown"] = 'x';
     Param.MapParamChar["KeyLeft"] = 'q';
     Param.MapParamChar["KeyRight"] = 'd';
     Param.MapParamChar["KeyUpLeft"] = 'a';
     Param.MapParamChar["KeyUpRight"] = 'e';
     Param.MapParamChar["KeyDownLeft"] = 'w';
     Param.MapParamChar["KeyDownRight"] = 'c';
+    Param.MapParamChar["KeyStayHere"] = 's';
     Param.MapParamChar["KTokenPlayer1"] = 'X';
     Param.MapParamChar["KTokenPlayer2"] = 'O';
     Param.MapParamChar["KEmpty"] = ' ';
@@ -56,14 +57,16 @@ void Config::InitConfig()
     Param.MapParamUnsigned["GridMin"] = 10;
 
     //Display Colors
-    Param.MapParamString["LineColor"] = KColor.find("KBlack")->second;
-    Param.MapParamString["RowColor"] = KColor.find("KBlack")->second;
-    Param.MapParamString["IndexColor"] = KColor.find("KBlack")->second;
+    Param.MapParamString["KLineColor"] = KColor.find("KBlack")->second;
+    Param.MapParamString["KRowColor"] = KColor.find("KBlack")->second;
+    Param.MapParamString["KIndexColor"] = KColor.find("KBlack")->second;
     Param.MapParamString["KColorPlayer1"] = KColor.find("KBlue")->second;
     Param.MapParamString["KColorPlayer2"] = KColor.find("KRed")->second;
     Param.MapParamString["KColorBomb"] = KColor.find("KRed")->second;
     Param.MapParamString["KColorSpeed"] = KColor.find("KCyan")->second;
-    Param.MapParamString["BorderColor"] = KColor.find("KRed")->second;
+    Param.MapParamString["KBorderColor"] = KColor.find("KRed")->second;
+    Param.MapParamString["KColorVictory"] = KColor.find("KGreen")->second;
+    Param.MapParamString["KColorLose"] = KColor.find("KRed")->second;
 }
 
 void Config::LoadConfig (const string & FileName)
