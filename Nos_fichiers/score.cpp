@@ -19,10 +19,10 @@ int Score::ReadScoreFile ()
 void Score::WriteScoreFile (const unsigned & PlayerNb, const unsigned & NbV)
 {
     this->scoreStream
-            << "=====================================================" << endl
+            << string (40, '=') << endl
             <<" Le Joueur n°" << PlayerNb
             << " a gagné la partie n° "<< NbV << "!" << endl
-            << "=====================================================" << endl;
+            << string (40, '=') << endl;
 }
 
 void Score::CloseScoreFile ()
