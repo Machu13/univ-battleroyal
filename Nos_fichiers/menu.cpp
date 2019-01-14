@@ -105,7 +105,7 @@ void Menu::ShowConfigMenu ()
                 system ("(gedit ../univ-battleroyal/Nos_fichiers/config.yml > /dev/null)");
                 break;
             case '3':
-                cout << "> Tkt ca va se reload tout seul quand la partie aura demare :)" << endl;
+                cout << "> Tkt ca va se reload tout seul quand la partie aura demarre :)" << endl;
                 sleep(3);
                 break;
             case '4':
@@ -139,7 +139,7 @@ void Menu::ShowPecheMignonDeMarc ()
     else
     {
         Screen::Color (Screen::getColor ("Red"));
-        cout << Screen::center (Screen::underline ("Pas de recette pour ajourd'hui :/ (bronx.txt not found)")) << endl;
+        cout << Screen::center (Screen::underline ("Pas de recette pour aujourd'hui :/ (bronx.txt not found)")) << endl;
         Screen::Color (Screen::getColor ("Reset"));
     }
     cout << endl << "[RETURN ESC]";
