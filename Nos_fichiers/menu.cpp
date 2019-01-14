@@ -72,11 +72,23 @@ void Menu::ShowConfig ()
 
 void Menu::CreditsMenu ()
 {
-    for (const string & text : Screen::square (string (5, ' ') + "Menu Credits" + string (5, ' ')))
+    for (const string & text : Screen::square (string (5, ' ') + "Credits" + string (5, ' ')))
         cout << Screen::center (text) << endl;
     cout << endl;
-    cout << "Projet realise dans le cadre universitaire." << endl;
-    cout << "" << endl;
+    vector <string> credits;
+    credits.push_back("       Maxime Minguella    as Lead Developer");
+    credits.push_back("          Arthur Petre    as Game Director");
+    credits.push_back("              Hugo Panis    as Leader Designer");
+    credits.push_back("Vincent Lavernhe    as himself");
+    credits.push_back("               Mathias Meyer    as Redoublant Designer");
+    credits.push_back("    Bruce Wayne    as Batman");
+    credits.push_back("        Alain Casali    as Beta Tester");
+    credits.push_back("         Marc TheDoor    as Bronx Master");
+    for (const string & info : credits)
+    {
+        sleep (1);
+        cout << Screen::center (info) << endl;
+    }
 }
 
 void Menu::ShowConfigMenu ()
@@ -105,23 +117,7 @@ void Menu::ShowConfigMenu ()
 void Menu::ShowCreditsMenu ()
 {
     Screen::ClearScreen();
-    for (const string & text : Screen::square (string (5, ' ') + "Credits" + string (5, ' ')))
-        cout << Screen::center (text) << endl;
-    cout << endl;
-    vector <string> credits;
-    credits.push_back("       Maxime Minguella    as Lead Developer");
-    credits.push_back("          Arthur Petre    as Game Director");
-    credits.push_back("              Hugo Panis    as Leader Designer");
-    credits.push_back("Vincent Lavernhe    as himself");
-    credits.push_back("               Mathias Meyer    as Redoublant Designer");
-    credits.push_back("    Bruce Wayne    as Batman");
-    credits.push_back("        Alain Casali    as Beta Tester");
-    credits.push_back("         Marc TheDoor    as Bronx Master");
-    for (const string & info : credits)
-    {
-        sleep (1);
-        cout << Screen::center (info) << endl;
-    }
+    CreditsMenu();
     cout << "[RETURN ESC]";
     GetChoice();
 }
