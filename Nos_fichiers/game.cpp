@@ -1,3 +1,11 @@
+/*!
+* @name game.cpp
+*
+* @author {Maxime Minguella, Arthur Petre, Mathias Meyer, Hugo Panis, Vincent Lavernhe}
+*
+* @date 14 janvier 2019
+*/
+
 #include <iostream>
 #include <string>
 #include <regex>

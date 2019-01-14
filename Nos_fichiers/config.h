@@ -1,8 +1,20 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+/*!
+* @file config.h
+* @brief Definition of configuration of the game
+* @author {Maxime Minguella, Arthur Petre, Mathias Meyer, Hugo Panis, Vincent Lavernhe}
+* @version 1.0
+* @date 14 janvier 2019
+*/
+
 #include "type.h"
 
+/**
+* @class Config config.h
+* @brief class containing all the game's parameters
+*/
 class Config {
 private:
     CConfig Param;

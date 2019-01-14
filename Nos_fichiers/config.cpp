@@ -1,3 +1,11 @@
+/*!
+* @name config.cpp
+*
+* @author {Maxime Minguella, Arthur Petre, Mathias Meyer, Hugo Panis, Vincent Lavernhe}
+*
+* @date 14 janvier 2019
+*/
+
 #pragma once
 #include <iostream>
 #include <string>
