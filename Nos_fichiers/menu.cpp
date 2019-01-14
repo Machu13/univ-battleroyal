@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <termios.h>
 #include "type.h"
 #include "config.h"
 #include "screen.h"
@@ -26,9 +24,9 @@ void Menu::MainMenu ()
     cout << endl;
     for (const string & text : Screen::square ("1. Jouer"))
         cout << Screen::center (text) << endl;
-    for (const string & text : Screen::square ("2. Paramètres de jeu"))
+    for (const string & text : Screen::square ("2. Parametres de jeu"))
         cout << Screen::center (text) << endl;
-    for (const string & text : Screen::square ("3. Crédits"))
+    for (const string & text : Screen::square ("3. Credits"))
         cout << Screen::center (text) << endl;
     for (const string & text : Screen::square ("4. Faire un bronx"))
         cout << Screen::center (text) << endl;
@@ -68,13 +66,16 @@ void Menu::ShowConfig ()
     for (auto & val : config.getConfig().MapParamUnsigned)
        cout << val.first << " = " << val.second << endl;
     cout << "[RETURN ESC]";
-    char tmp;
-    cin >> tmp;
+    GetChoice();
 }
 
 void Menu::CreditsMenu ()
 {
-
+    for (const string & text : Screen::square (string (5, ' ') + "Menu Credits" + string (5, ' ')))
+        cout << Screen::center (text) << endl;
+    cout << endl;
+    cout << "Projet realise dans le cadre universitaire." << endl;
+    cout << "" << endl;
 }
 
 void Menu::ShowConfigMenu ()
@@ -102,12 +103,36 @@ void Menu::ShowConfigMenu ()
 
 void Menu::ShowCreditsMenu ()
 {
+    Screen::ClearScreen();
+    for (const string & text : Screen::square (string (5, ' ') + "Credits" + string (5, ' ')))
+        cout << Screen::center (text) << endl;
 
+    cout << "[RETURN ESC]";
+    GetChoice();
 }
 
 void Menu::ShowPecheMignonDeMarc ()
 {
-
+    Screen::ClearScreen();
+    for (const string & text : Screen::square (string (5, ' ') + "BRONXXXXXXXXXX" + string (5, ' ')))
+        cout << Screen::center (text) << endl;
+    cout << endl;
+    ifstream ifs ("../univ-battleroyal/Nos_fichiers/bronx.txt");
+    if (ifs.is_open())
+    {
+        string line;
+        for (getline(ifs, line); !ifs.eof(); getline(ifs, line))
+            cout << line << endl;
+        ifs.close();
+    }
+    else
+    {
+        Screen::Color (Screen::getColor ("Red"));
+        cout << Screen::center (Screen::underline ("Pas de recette pour ajourd'hui :/ (bronx.txt not found)")) << endl;
+        Screen::Color (Screen::getColor ("Reset"));
+    }
+    cout << endl << "[RETURN ESC]";
+    GetChoice();
 }
 
 void Menu::ShowMainMenu ()
