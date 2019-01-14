@@ -6,9 +6,15 @@
 
 class Grid
 {
+private:
+
+    static void BombsGenerator (CMatrix & Mat, Config & Params);
+
+    static void SpeedLootsGenerator (CMatrix & Mat, Config & Params);
+
 public:
 
-    static void InitGrid (CMatrix & Mat, unsigned NbLine, unsigned NbColumn, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
+    static void InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
 
     static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border);
 
