@@ -32,6 +32,12 @@ void Menu::MovePointer (char & choice, unsigned & nbr, const unsigned & max)
 
 void Menu::MainMenu (unsigned nbr)
 {
+    cout << Screen::center (" ______        ______           ______   _____  _     _      _       ")      << endl;
+    cout << Screen::center ("(_____ \\ /\\   / _____)         (_____ \\ / ___ \\| |   | |/\\  | |      ") << endl;
+    cout << Screen::center (" _____) )  \\ | /         ___    _____) ) |   | | |___| /  \\ | |      ")    << endl;
+    cout << Screen::center ("|  ____/ /\\ \\| |        (___)  (_____ (| |   | |\\_____/ /\\ \\| |      ") << endl;
+    cout << Screen::center ("| |   | |__| | \\_____                | | |___| |  ___| |__| | |_____ ")     << endl;
+    cout << Screen::center ("|_|   |______|\\______)               |_|\\_____/  (___)______|_______)")    << endl;
     for (const string & text : Screen::square (string (5, ' ') + "Menu Principal" + string (5, ' ')))
         cout << Screen::center (text) << endl;
     cout << endl;
@@ -209,6 +215,14 @@ void Menu::ShowMainMenu ()
             ShowPecheMignonDeMarc ();
             break;
         case '5':
+            Screen::ClearScreen ();
+            cout << Screen::center ("  ______          ______   _______     _____   _    _  _______  ______  ")       << endl;
+            cout << Screen::center (" / _____)   /\\   |  ___ \\ (_______)   / ___ \\ | |  | |(_______)(_____ \\ ")   << endl;
+            cout << Screen::center ("| /  ___   /  \\  | | _ | | _____     | |   | || |  | | _____    _____) )")      << endl;
+            cout << Screen::center ("| | (___) / /\\ \\ | || || ||  ___)    | |   | | \\ \\/ / |  ___)  (_____ ( ")   << endl;
+            cout << Screen::center ("  | \\____/|| |__| || || || || |_____   | |___| |  \\  /  | |_____       | | ")  << endl;
+            cout << Screen::center ("   \\_____/ |______||_||_||_||_______)   \\_____/    \\/   |_______)      |_| ") << endl;
+            cout << endl;
             exit(0);
         }
     }
