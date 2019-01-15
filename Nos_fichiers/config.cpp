@@ -56,8 +56,6 @@ void Config::InitConfig()
     Param.MapParamChar["KTokenPlayer1"] = 'X';
     Param.MapParamChar["KTokenPlayer2"] = 'O';
     Param.MapParamChar["KEmpty"]        = ' ';
-    Param.MapParamChar["KTokenBomb"]    = '#';
-    Param.MapParamChar["KTokenSpeed"]   = '/';
 
     //Size of grid -- suppose to be squared
     Param.MapParamUnsigned["GridSize"]  = 10;
@@ -70,8 +68,6 @@ void Config::InitConfig()
     Param.MapParamString["KIndexColor"]     = KColor.find ("KBlack")->second;
     Param.MapParamString["KColorPlayer1"]   = KColor.find ("KBlue")->second;
     Param.MapParamString["KColorPlayer2"]   = KColor.find ("KRed")->second;
-    Param.MapParamString["KColorBomb"]      = KColor.find ("KRed")->second;
-    Param.MapParamString["KColorSpeed"]     = KColor.find ("KCyan")->second;
     Param.MapParamString["KBorderColor"]    = KColor.find ("KRed")->second;
     Param.MapParamString["KColorVictory"]   = KColor.find ("KGreen")->second;
     Param.MapParamString["KColorLose"]      = KColor.find ("KRed")->second;
