@@ -22,47 +22,47 @@ using namespace std;
 void Game::MoveToken (CMatrix & Mat, char Move, CPosition & Pos, Config & config)
 {
     char car = Mat[Pos.first][Pos.second];
-    Mat[Pos.first][Pos.second] = config.readChar("KEmpty");
+    Mat[Pos.first][Pos.second] = config.readChar ("KEmpty");
     unsigned Size = Mat.size() - 1;
     Move = tolower(Move);
-    if (config.readChar("KeyUp") == Move && 0 != Pos.first)
+    if (config.readChar ("KeyUp")             == Move && 0 != Pos.first)
     {
         --Pos.first;
     }
-    else if (config.readChar("KeyDown") == Move && Size != Pos.first)
+    else if (config.readChar ("KeyDown")      == Move && Size != Pos.first)
     {
         ++Pos.first;
     }
-    else if (config.readChar("KeyLeft") == Move && 0 != Pos.second)
+    else if (config.readChar ("KeyLeft")      == Move && 0 != Pos.second)
     {
         --Pos.second;
     }
-    else if (config.readChar("KeyRight") == Move && Size != Pos.second)
+    else if (config.readChar ("KeyRight")     == Move && Size != Pos.second)
     {
         ++Pos.second;
     }
-    else if (config.readChar("KeyUpLeft") == Move && 0 != Pos.second && 0 != Pos.first)
+    else if (config.readChar ("KeyUpLeft")    == Move && 0 != Pos.second && 0 != Pos.first)
     {
         --Pos.first;
         --Pos.second;
     }
-    else if (config.readChar("KeyUpRight") == Move && Size != Pos.second && 0 != Pos.first)
+    else if (config.readChar ("KeyUpRight")   == Move && Size != Pos.second && 0 != Pos.first)
     {
         --Pos.first;
         ++Pos.second;
     }
-    else if (config.readChar("KeyDownLeft") == Move && 0 != Pos.second && Size != Pos.first)
+    else if (config.readChar ("KeyDownLeft")  == Move && 0 != Pos.second && Size != Pos.first)
     {
         ++Pos.first;
         --Pos.second;
     }
-    else if (config.readChar("KeyDownRight") == Move && Size != Pos.second && Size != Pos.first)
+    else if (config.readChar ("KeyDownRight") == Move && Size != Pos.second && Size != Pos.first)
     {
         ++Pos.first;
         ++Pos.second;
     }
     Mat[Pos.first][Pos.second] = car;
-} // MoveToken ()
+} // Gaem::MoveToken ()
 
 int Game::ppal (const bool & SkipMenu)
 {
@@ -79,7 +79,7 @@ int Game::ppal (const bool & SkipMenu)
     config.InitConfig ();
     config.LoadConfig ("../univ-battleroyal/Nos_fichiers/config.yml");
     // Vars
-    const unsigned KSize (config.readInt32("GridSize"));
+    const unsigned KSize (config.readInt32 ("GridSize"));
     unsigned RoundNum (0);
     const unsigned KMaxRoundNum (4 * KSize - 4);
     const unsigned KNbTourAvantGaz ( KMaxRoundNum / ( ( KSize / 2 ) + 1 ) );
@@ -87,7 +87,7 @@ int Game::ppal (const bool & SkipMenu)
     bool PreBorder (false), Player1Turn (true);
 
     Score score = Score ("../univ-battleroyal/Nos_fichiers/score.txt");
-    if (! score.ReadScoreFile())
+    if (! score.ReadScoreFile ())
     {
         cerr << "!! ERROR : Fichier 'score.txt' inexisant !!" << endl;
         return 1;
@@ -114,17 +114,17 @@ int Game::ppal (const bool & SkipMenu)
         // Beaucoup de complexitude pour pas grand chose.
         // Mais au moins c'est plus opti que un grand if avec plein de OU
         for (const auto & Val : config.getConfig().MapParamChar)
-            for (sregex_iterator regIt (sregex_iterator(Val.first.begin(), Val.first.end(), pattern));
+            for (sregex_iterator regIt (sregex_iterator(Val.first.begin (), Val.first.end (), pattern));
                  regIt != sregex_iterator (); ++ regIt)
-                if (Move == toupper(Val.second))
+                if (Move == toupper (Val.second))
                     CorrectMove = true;
         if (CorrectMove)
         {
             MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2), config);
             Screen::ClearScreen();
             Grid::DisplayGrid (Mat, config, Border, PreBorder);
-            Screen::Color (config.readString("KColorPlayer" + string (1, (Player1Turn ? '1' : '2'))));
-            if (Move == toupper(config.readChar("KeyStayHere")))
+            Screen::Color (config.readString ("KColorPlayer" + string (1, (Player1Turn ? '1' : '2'))));
+            if (Move == toupper(config.readChar ("KeyStayHere")))
                 cout << "Joueur n° " << (Player1Turn ? '1' : '2') << " dit : \"JE RESTE PLANTE LA\"" << endl;
             else
                 cout << "Joueur n° " << (Player1Turn ? '1' : '2') << ", au tour precedent, a fait : " << Move << endl;
@@ -185,7 +185,7 @@ int Game::ppal (const bool & SkipMenu)
         Screen::ClearScreen ();
         switch (Gagnant) {
         case 0:
-            Screen::Color (config.readString("KColorLose"));
+            Screen::Color (config.readString ("KColorLose"));
             cout << Screen::center (" _____   _______ _______ _______        _______ ")                << endl;
             cout << Screen::center ("(____ \\ (_______|_______|_______)  /\\  (_______)")  << endl;
             cout << Screen::center (" _   \\ \\ _____   _____   _____    /  \\  _       ") << endl;
@@ -195,7 +195,7 @@ int Game::ppal (const bool & SkipMenu)
             cout << endl << endl;
             cout << Screen::center ("ToT  Aucun vainqueur  ToT") << endl;
             ++NbV;
-            score.WriteScoreFile(0, NbV);
+            score.WriteScoreFile (0, NbV);
             break;
         case 1:
             Screen::Color (config.readString("KColorVictory"));
@@ -207,7 +207,7 @@ int Game::ppal (const bool & SkipMenu)
             cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
             cout << endl << endl;
             cout << Screen::center ("Le Joueur n° 1 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
-            score.WriteScoreFile(1, NbV);
+            score.WriteScoreFile (1, NbV);
             break;
         case 2:
             Screen::Color (config.readString("KColorVictory"));
@@ -219,7 +219,7 @@ int Game::ppal (const bool & SkipMenu)
             cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
             cout << endl << endl;
             cout << Screen::center ("Le Joueur n° 2 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
-            score.WriteScoreFile(2, NbV);
+            score.WriteScoreFile (2, NbV);
             break;
         }
         score.CloseScoreFile();
@@ -242,4 +242,4 @@ int Game::ppal (const bool & SkipMenu)
                 return 0;
         }
     }
-} // ppal ()
+} // Game::ppal ()

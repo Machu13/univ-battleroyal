@@ -20,40 +20,44 @@ class Grid
 private:
 
     /**
-     * @brief BombsGenerator
-     * @param Mat
-     * @param Params
-     * @return
+     * @brief Generation Bombs
+     * @param Mat : Game grid
+     * @param Params : Init position with Params
+     * @return Bombs  Position
+     * @fn static CPosition BombsGenerator (CMatrix & Mat, Config & Params);
      */
     static CPosition BombsGenerator (CMatrix & Mat, Config & Params);
 
     /**
-     * @brief SpeedLootsGenerator
-     * @param Mat
-     * @param Params
-     * @return
+     * @brief Generation SpeedBonus
+     * @param Mat : Game grid
+     * @param Params : Init position with Params
+     * @return SpeedBonus  Position
+     * @fn static CPosition SpeedLootsGenerator (CMatrix & Mat, Config & Params);
      */
     static CPosition SpeedLootsGenerator (CMatrix & Mat, Config & Params);
 
 public:
     /**
-     * @brief InitGrid
-     * @param Mat
-     * @param Size
-     * @param PosPlayer1
-     * @param PosPlayer2
-     * @param Params
+     * @brief Initialization Grid and KTokensPlayers
+     * @param Mat : Game grid
+     * @param Size : Size grid
+     * @param PosPlayer1 : Position Player 1
+     * @param PosPlayer2 : Position Player 2
+     * @param Params : Init positions players
+     * @fn static void InitGrid (CMatrix & Mat, unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
      */
-    static void InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
+    static void InitGrid (CMatrix & Mat, unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
 
-    /**
-     * @brief DisplayGrid
-     * @param Mat
-     * @param Params
-     * @param Border
-     * @param PreBorder
-     */
-    static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border,  const bool & PreBorder = false);
+   /**
+    * @brief Display Grid and KTokensPlayers
+    * @param Mat : Game grid
+    * @param Params : Init all variables
+    * @param Border : Size gaz border
+    * @param PreBorder : Deadly effect gaz
+    * @fn static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned & Border,  const bool & PreBorder = false);
+    */
+    static void DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned & Border,  const bool & PreBorder = false);
 
 };
 

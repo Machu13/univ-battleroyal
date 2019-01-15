@@ -20,37 +20,43 @@ class Score
 {
 private:
     /**
-     * @brief scoreStream
+     * @brief opening score file stream
+     * @fn std::ofstream scoreStream
      */
     std::ofstream scoreStream;
 
     /**
-     * @brief FileName
+     * @brief path to the file
+     * @fn std::string FileName
      */
     std::string FileName;
 
 public:
     /**
-     * @brief Score
-     * @param FileName
+     * @brief Constructor : display game score
+     * @param [in] FileName : file name
+     * @fn Score (const std::string & FileName)
      */
     Score (const std::string & FileName);
 
     /**
-     * @brief ReadScoreFile
-     * @return
+     * @brief open the score file stream
+     * @return  int Score file
+     * @fn int ReadScoreFile ()
      */
     int ReadScoreFile ();
 
     /**
-     * @brief WriteScoreFile
-     * @param PlayerNb
-     * @param NbV
+     * @brief display player's score
+     * @param [in] PlayerNb : value of player's number
+     * @param [in] NbV : value of game number
+     * @fn void WriteScoreFile (const unsigned & PlayerNb, const unsigned & NbV)
      */
     void WriteScoreFile (const unsigned & PlayerNb, const unsigned & NbV);
 
     /**
-     * @brief CloseScoreFile
+     * @brief close the file stream
+     * @fn void CloseScoreFile ()
      */
     void CloseScoreFile ();
 

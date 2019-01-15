@@ -13,7 +13,7 @@ static struct termios saved_attributes;
 void IO::reset_input_mode (void)
 {
     tcsetattr (STDIN_FILENO, TCSANOW, &saved_attributes);
-}
+} // IO::reset_input_mode ()
 
 void IO::set_input_mode (void)
 {
@@ -36,7 +36,7 @@ void IO::set_input_mode (void)
     tattr.c_cc[VMIN] = 1;
     tattr.c_cc[VTIME] = 0;
     tcsetattr (STDIN_FILENO, TCSAFLUSH, &tattr);
-}
+} // IO::set_input_mode ()
 
 void IO::sig_handler (int signal)
 {
@@ -46,9 +46,9 @@ void IO::sig_handler (int signal)
     errorMsg.push_back("lol nope");
     errorMsg.push_back("Tia vu ? On est plus resistant qu'Allegro ! <3");
     srand (time (NULL));
-    std::cout << errorMsg[rand() % errorMsg.size() - 1] << std::endl;
+    std::cout << errorMsg[rand () % errorMsg.size () - 1] << std::endl;
     exit (2);
-}
+} // IO::sig_handler ()
 
 void IO::bloc_sig ()
 {
@@ -59,4 +59,4 @@ void IO::bloc_sig ()
     sigIntHandler.sa_flags = 0;
 
     sigaction(SIGINT, &sigIntHandler, NULL);
-}
+} // IO::bloc_sig ()

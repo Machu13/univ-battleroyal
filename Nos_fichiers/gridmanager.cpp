@@ -39,37 +39,36 @@ CPosition Grid::SpeedLootsGenerator (CMatrix & Mat, Config & Params)
     return speed;
 }
 
-void Grid::InitGrid (CMatrix & Mat, unsigned Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params)
+void Grid::InitGrid (CMatrix & Mat, unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params)
 {
     Mat.resize (Size);
-    const CVLine KLine (Size, Params.readChar("KEmpty"));
+    const CVLine KLine (Size, Params.readChar ("KEmpty"));
     for (CVLine &ALine : Mat)
         ALine = KLine;
 
     PosPlayer1.first = 0;
     PosPlayer1.second = Size - 1;
-    Mat [PosPlayer1.first][PosPlayer1.second]   = Params.readChar("KTokenPlayer1");
+    Mat [PosPlayer1.first][PosPlayer1.second]   = Params.readChar ("KTokenPlayer1");
     PosPlayer2.first = Size - 1;
     PosPlayer2.second = 0;
-    Mat [PosPlayer2.first][PosPlayer2.second]   = Params.readChar("KTokenPlayer2");
+    Mat [PosPlayer2.first][PosPlayer2.second]   = Params.readChar ("KTokenPlayer2");
 
-    unsigned bomb (Mat.size() / 10) ;
+    unsigned bomb (Mat.size () / 10) ;
     for (unsigned i (0); i < bomb; ++i)
-        Params.getConfig().bombs.push_back(BombsGenerator (Mat, Params));
+        Params.getConfig().bombs.push_back (BombsGenerator (Mat, Params));
     for (unsigned i (0); i < bomb * 2; ++i)
-        Params.getConfig().speed.push_back(SpeedLootsGenerator (Mat, Params));
-} // InitGrid ()
+        Params.getConfig().speed.push_back (SpeedLootsGenerator (Mat, Params));
+} // Grid::InitGrid ()
 
-void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Border, const bool & PreBorder)
+void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned & Border, const bool & PreBorder)
 {
     const string    KBordurePre    = "103";
     const string    KBordurePost   = "101";
-    const char      KGaz           = ' ';
-    const char      KE             = Params.readChar("KEmpty");
-    const char      KTP1           = Params.readChar("KTokenPlayer1");
-    const char      KTP2           = Params.readChar("KTokenPlayer2");
-    const char      KB             = Params.readChar("KTokenBomb");
-    const char      KS             = Params.readChar("KTokenSpeed");
+    const char      KE             = Params.readChar ("KEmpty");
+    const char      KTP1           = Params.readChar ("KTokenPlayer1");
+    const char      KTP2           = Params.readChar ("KTokenPlayer2");
+    const char      KB             = Params.readChar ("KTokenBomb");
+    const char      KS             = Params.readChar ("KTokenSpeed");
     const unsigned TailleMAT = Mat.size();
     for (unsigned i(0); i < TailleMAT; ++i)
     {
@@ -113,25 +112,25 @@ void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Bor
                         cout << c;
                     else if(c == KTP1)
                     {
-                        Screen::Color (Params.readString("KColorPlayer1"));
+                        Screen::Color (Params.readString ("KColorPlayer1"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KTP2)
                     {
-                        Screen::Color (Params.readString("KColorPlayer2"));
+                        Screen::Color (Params.readString ("KColorPlayer2"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KB)
                     {
-                        Screen::Color (Params.readString("KColorBomb"));
+                        Screen::Color (Params.readString ("KColorBomb"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KS)
                     {
-                        Screen::Color (Params.readString("KColorSpeed"));
+                        Screen::Color (Params.readString ("KColorSpeed"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
@@ -144,25 +143,25 @@ void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Bor
                         cout << c;
                     else if(c == KTP1)
                     {
-                        Screen::Color (Params.readString("KColorPlayer1"));
+                        Screen::Color (Params.readString ("KColorPlayer1"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KTP2)
                     {
-                        Screen::Color (Params.readString("KColorPlayer2"));
+                        Screen::Color (Params.readString ("KColorPlayer2"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KB)
                     {
-                        Screen::Color (Params.readString("KColorBomb"));
+                        Screen::Color (Params.readString ("KColorBomb"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KS)
                     {
-                        Screen::Color (Params.readString("KColorSpeed"));
+                        Screen::Color (Params.readString ("KColorSpeed"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
@@ -174,25 +173,25 @@ void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Bor
                         cout << c;
                     else if(c == KTP1)
                     {
-                        Screen::Color (Params.readString("KColorPlayer1"));
+                        Screen::Color (Params.readString ("KColorPlayer1"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KTP2)
                     {
-                        Screen::Color (Params.readString("KColorPlayer2"));
+                        Screen::Color (Params.readString ("KColorPlayer2"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KB)
                     {
-                        Screen::Color (Params.readString("KColorBomb"));
+                        Screen::Color (Params.readString ("KColorBomb"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
                     else if(c == KS)
                     {
-                        Screen::Color (Params.readString("KColorSpeed"));
+                        Screen::Color (Params.readString ("KColorSpeed"));
                         cout << c;
                         Screen::Color (Screen::getColor ("Reset"));
                     }
@@ -205,5 +204,5 @@ void Grid::DisplayGrid (const CMatrix & Mat, Config & Params, const unsigned Bor
     for (unsigned k(1); k < TailleMAT * 4; ++k)
         cout << ((k == ((TailleMAT * 4) - 1)) ? "─┘" : ((k % 4 == 0) ? "┴" : "─" ));
     cout << endl;
-    Screen::Color(Screen::getColor("Reset"));
-}
+    Screen::Color (Screen::getColor ("Reset"));
+} // Grid::DisplayGrid ()

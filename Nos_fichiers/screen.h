@@ -30,42 +30,48 @@ public:
     static void ClearScreen ();
 
     /**
-     * @brief Color
-     * @param Col
+     * @brief Color : display color
+     * @param Col : current value of the color
+     * @fn static void Color (const string & Col)
      */
     static void Color (const string & Col);
 
     /**
-     * @brief getColor
-     * @param Color
-     * @return
+     * @brief getColor : search the color in the config file
+     * @param Color : current value of the color
+     * @return string : linux color code
+     * @fn static string getColor (const string & Color)
      */
     static string getColor (const string & Color);
 
     /**
-     * @brief underline
-     * @param Color
-     * @return
+     * @brief underline : underline the text
+     * @param Color : current value of the color
+     * @return string : underlined text
+     * @fn static string underline (const string & Color)
      */
     static string underline (const string & Color);
 
     /**
-     * @brief center
-     * @param text
-     * @return
+     * @brief center : center the text
+     * @param text : current value of the text
+     * @return string : centered text
+     * @fn static string center (const string & text)
      */
     static string center (const string & text);
 
     /**
-     * @brief square
-     * @param text
-     * @return
+     * @brief square : surround the text
+     * @param text : current value of the text
+     * @return vector<string> : surrounded text
+     * @fn static vector<string> square (const string & text)
      */
     static vector<string> square (const string & text);
 
     /**
-     * @brief GetChoice
-     * @return
+     * @brief GetChoice : get the player key input
+     * @return char : player's key entered
+     * @fn static char GetChoice ()
      */
     static char GetChoice ();
 };

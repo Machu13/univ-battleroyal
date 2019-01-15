@@ -16,53 +16,62 @@ class Menu
 {
 private:
     /**
-     * @brief MovePointer
-     * @param choice
-     * @param nbr
-     * @param max
+     * @brief MovePointer : moving through options on the menu
+     * @param choice : user movement key
+     * @param nbr : value of current choice
+     * @param max : max opts in menu
+     * @fn static void MovePointer(char & choice, unsigned & nbr, const unsigned & max)
      */
     static void MovePointer (char & choice, unsigned & nbr, const unsigned & max);
 
     /**
-     * @brief ConfigMenu
-     * @param nbr
+     * @brief ConfigMenu : contents design of the menu's choices
+     * @param nbr : value of current choice
+     * @fn static void ConfigMenu (const unsigned & nbr)
      */
-    static void ConfigMenu (unsigned nbr);
+    static void ConfigMenu (const unsigned & nbr);
 
     /**
-     * @brief ShowConfig
+     * @brief ShowConfig : display all values of the config
+     * @fn static void ShowConfig ()
      */
     static void ShowConfig ();
 
     /**
-     * @brief CreditsMenu
+     * @brief CreditsMenu : contents credits
+     * @fn static void CreditsMenu ()
      */
     static void CreditsMenu ();
 
     /**
-     * @brief MainMenu
-     * @param nbr
+     * @brief MainMenu : contents all values of the main menu
+     * @param nbr : value of current choice
+     * @fn static void MainMenu (const unsigned & nbr)
      */
-    static void MainMenu (unsigned nbr);
+    static void MainMenu (const unsigned & nbr);
 
 public:
     /**
-     * @brief ShowConfigMenu
+     * @brief ShowConfigMenu : display all choices for the config menu
+     * @fn static void ShowConfigMenu ()
      */
     static void ShowConfigMenu ();
 
     /**
-     * @brief ShowCreditsMenu
+     * @brief ShowCreditsMenu : display credits
+     * @fn static void ShowCreditsMenu ()
      */
     static void ShowCreditsMenu ();
 
     /**
-     * @brief ShowPecheMignonDeMarc
+     * @brief ShowPecheMignonDeMarc : display the bronx's recipe
+     * @fn static void ShowPecheMignonDeMarc ()
      */
     static void ShowPecheMignonDeMarc ();
 
     /**
-     * @brief ShowMainMenu
+     * @brief ShowMainMenu : display the menu of the game
+     * @fn static void ShowMainMenu ()
      */
     static void ShowMainMenu ();
 };

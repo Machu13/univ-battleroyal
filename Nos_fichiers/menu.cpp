@@ -21,9 +21,9 @@ void Menu::MovePointer (char & choice, unsigned & nbr, const unsigned & max)
             ++nbr;
     if (tolower(choice) == '0')
         choice = '1' + nbr;
-}
+} // Menu::MovePointer ()
 
-void Menu::MainMenu (unsigned nbr)
+void Menu::MainMenu (const unsigned & nbr)
 {
     cout << Screen::center (" ______        ______           ______   _____  _     _      _       ")      << endl;
     cout << Screen::center ("(_____ \\ /\\   / _____)         (_____ \\ / ___ \\| |   | |/\\  | |      ") << endl;
@@ -59,9 +59,9 @@ void Menu::MainMenu (unsigned nbr)
     for (const string & text : Screen::square ("5. Quitter"))
         cout << Screen::center (text) << endl;
     Screen::Color (Screen::getColor ("Reset"));
-}
+} // Menu::MainMenu ()
 
-void Menu::ConfigMenu (unsigned nbr)
+void Menu::ConfigMenu (const unsigned & nbr)
 {
     for (const string & text : Screen::square (string (5, ' ') + "Menu Config" + string (5, ' ')))
         cout << Screen::center (text) << endl;
@@ -86,7 +86,7 @@ void Menu::ConfigMenu (unsigned nbr)
     for (const string & text : Screen::square ("4. Retour au menu principal"))
         cout << Screen::center (text) << endl;
     Screen::Color (Screen::getColor ("Reset"));
-}
+} // Menu::ConfigMenu ()
 
 void Menu::ShowConfig ()
 {
@@ -98,11 +98,11 @@ void Menu::ShowConfig ()
         cout << Screen::center (text) << endl;
     cout << Screen::center (Screen::underline ("Configuration actuelle")) << endl << endl;
     Screen::Color (Screen:: getColor("Reset"));
-    for (auto & val : config.getConfig().MapParamString)
+    for (auto & val : config.getConfig ().MapParamString)
         cout << val.first << " = " << val.second << endl;
-    for (auto & val : config.getConfig().MapParamChar)
+    for (auto & val : config.getConfig ().MapParamChar)
         cout << val.first << " = " << val.second << endl;
-    for (auto & val : config.getConfig().MapParamUnsigned)
+    for (auto & val : config.getConfig ().MapParamUnsigned)
         cout << val.first << " = " << val.second << endl;
     cout << "[RETURN ESC]";
     Screen::GetChoice ();
@@ -127,7 +127,7 @@ void Menu::CreditsMenu ()
         sleep (1);
         cout << Screen::center (info) << endl;
     }
-}
+} // Menu::CreditsMenu ()
 
 void Menu::ShowConfigMenu ()
 {
@@ -152,15 +152,15 @@ void Menu::ShowConfigMenu ()
             return;
         }
     }
-}
+} // Menu::ShowConfigMenu ()
 
 void Menu::ShowCreditsMenu ()
 {
     Screen::ClearScreen();
-    CreditsMenu();
+    CreditsMenu ();
     cout << "[RETURN ESC]";
     Screen::GetChoice ();
-}
+} // Menu::ShowCreditsMenu ()
 
 void Menu::ShowPecheMignonDeMarc ()
 {
@@ -169,12 +169,12 @@ void Menu::ShowPecheMignonDeMarc ()
         cout << Screen::center (text) << endl;
     cout << endl;
     ifstream ifs ("../univ-battleroyal/Nos_fichiers/bronx.txt");
-    if (ifs.is_open())
+    if (ifs.is_open ())
     {
         string line;
-        for (getline(ifs, line); !ifs.eof(); getline(ifs, line))
+        for (getline (ifs, line); !ifs.eof (); getline (ifs, line))
             cout << line << endl;
-        ifs.close();
+        ifs.close ();
     }
     else
     {
@@ -184,19 +184,19 @@ void Menu::ShowPecheMignonDeMarc ()
     }
     cout << endl << "[RETURN ESC]";
     Screen::GetChoice ();
-}
+} // Menu::ShowPecheMignonDeMarc ()
 
 void Menu::ShowMainMenu ()
 {
     unsigned nbr (0);
     while (true) {
-        Screen::ClearScreen();
-        MainMenu(nbr);
+        Screen::ClearScreen ();
+        MainMenu (nbr);
         char choice = Screen::GetChoice ();
         MovePointer (choice, nbr, 5);
         switch (choice) {
         case '1':
-            Screen::ClearScreen();
+            Screen::ClearScreen ();
             return;
         case '2':
             ShowConfigMenu ();
@@ -219,4 +219,4 @@ void Menu::ShowMainMenu ()
             exit(0);
         }
     }
-}
+} // Menu::ShowMainMenu ()
