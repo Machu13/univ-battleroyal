@@ -17,26 +17,6 @@
 */
 class Grid
 {
-private:
-
-    /**
-     * @brief Generation Bombs
-     * @param Mat : Game grid
-     * @param Params : Init position with Params
-     * @return Bombs  Position
-     * @fn static CPosition BombsGenerator (CMatrix & Mat, Config & Params);
-     */
-    static CPosition BombsGenerator (CMatrix & Mat, Config & Params);
-
-    /**
-     * @brief Generation SpeedBonus
-     * @param Mat : Game grid
-     * @param Params : Init position with Params
-     * @return SpeedBonus  Position
-     * @fn static CPosition SpeedLootsGenerator (CMatrix & Mat, Config & Params);
-     */
-    static CPosition SpeedLootsGenerator (CMatrix & Mat, Config & Params);
-
 public:
     /**
      * @brief Initialization Grid and KTokensPlayers
@@ -45,9 +25,9 @@ public:
      * @param PosPlayer1 : Position Player 1
      * @param PosPlayer2 : Position Player 2
      * @param Params : Init positions players
-     * @fn static void InitGrid (CMatrix & Mat, unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
+     * @fn static void InitGrid (CMatrix & Mat, const unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
      */
-    static void InitGrid (CMatrix & Mat, unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
+    static void InitGrid (CMatrix & Mat, const unsigned & Size, CPosition & PosPlayer1, CPosition & PosPlayer2, Config & Params);
 
    /**
     * @brief Display Grid and KTokensPlayers

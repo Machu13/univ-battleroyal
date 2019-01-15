@@ -40,10 +40,6 @@ struct CConfig {
     std::map <std::string, unsigned> MapParamUnsigned;
     /** List of parameters of type string */
     std::map <std::string, std::string> MapParamString;
-    /** List of bombs on the map */
-    std::vector <CPosition> bombs;
-    /** List of loots on the map (especialy speed's loots) */
-    std::vector <CPosition> speed;
 };
 
 /**
@@ -53,10 +49,10 @@ struct AuthorizedKey {
     /** List of authorized key for the type char in a struct CConfig */
     const std::vector <std::string> VParamChar { "KeyUp", "KeyDown", "KeyLeft", "KeyRight", "KeyUpLeft",
                                                  "KeyUpRight", "KeyDownLeft", "KeyDownRight", "KTokenPlayer1",
-                                                 "KTokenPlayer2", "KEmpty", "KTokenBomb", "KTokenSpeed" };
+                                                 "KTokenPlayer2", "KEmpty" };
     /** List of authorized key for the type string in a struct CConfig */
     const std::vector <std::string> VParamString { "LineColor", "RowColor", "IndexColor", "KColorPlayer1",
-                                                   "KColorPlayer2", "KColorBomb", "KColorSpeed", "BorderColor" };
+                                                   "KColorPlayer2", "BorderColor" };
     /** List of authorized key for the type unsigned in a struct CConfig */
     const std::vector <std::string> VParamUnsigned { "GridSize" , "GridMin", "GridMax" };
 };
