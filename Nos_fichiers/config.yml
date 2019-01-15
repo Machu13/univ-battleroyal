@@ -8,8 +8,6 @@ KeyDownRight : c
 KeyStayHere : s
 KTokenPlayer1 : X
 KTokenPlayer2 : O
-KTokenBomb : #
-KTokenSpeed : /
 GridSize : 10
 GridMax : 10
 GridMin : 10
@@ -18,8 +16,6 @@ KRowColor : Black
 KIndexColor : Black
 KColorPlayer1 : Blue
 KColorPlayer2 : Red
-KColorBomb : Red
-KColorSpeed : Cyan
 KBorderColor : Red
 KColorVictory : Green
 KColorLose : Red
