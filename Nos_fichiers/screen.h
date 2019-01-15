@@ -62,6 +62,12 @@ public:
      * @return
      */
     static vector<string> square (const string & text);
+
+    /**
+     * @brief GetChoice
+     * @return
+     */
+    static char GetChoice ();
 };
 
 #endif // SCREEN_H

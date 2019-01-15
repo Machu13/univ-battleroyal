@@ -43,3 +43,11 @@ vector<string> Screen::square (const string & text)
     squaredTxt.push_back (string (text.size() + 4, '-'));
     return squaredTxt;
 }
+
+char Screen::GetChoice ()
+{
+    string line;
+    getline (cin, line);
+    cin.clear ();
+    return line[0];
+}
