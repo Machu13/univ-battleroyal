@@ -98,7 +98,7 @@ void Config::LoadConfig (const string & FileName)
         {
             string Val;
             ifs >> Val;
-            Param.MapParamString[Key] = KColor.find(Val)->second;
+            Param.MapParamString[Key] = KColor.find("K" + Val)->second;
         }
         else
         {
