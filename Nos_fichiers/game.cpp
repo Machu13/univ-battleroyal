@@ -89,7 +89,7 @@ int Game::ppal (const bool & SkipMenu)
     Score score = Score ("../univ-battleroyal/Nos_fichiers/score.txt");
     if (! score.ReadScoreFile())
     {
-        cerr << "Le fichier score.txt n'existe pas !" << endl;
+        cerr << "!! ERROR : Fichier 'score.txt' inexisant !!" << endl;
         return 1;
     }
 
@@ -175,7 +175,7 @@ int Game::ppal (const bool & SkipMenu)
         else
         {
             Screen::ClearScreen ();
-            Grid::DisplayGrid(Mat, config, Border);
+            Grid::DisplayGrid (Mat, config, Border);
             cout << "!! Veuillez entrer un deplacement correct !!" << endl << endl;
         }
     }
@@ -183,24 +183,41 @@ int Game::ppal (const bool & SkipMenu)
     while (! false)  // <3
     {
         Screen::ClearScreen ();
-        Screen::Color (config.readString("KColorVictory"));
-        cout << Screen::center (" _    _ _____ ______ _______ _____  ______  _     _ ")    << endl;
-        cout << Screen::center ("| |  | (_____) _____|_______) ___ \\(_____ \\| |   | |")  << endl;
-        cout << Screen::center ("| |  | |  _ | /      _     | |   | |_____) ) |___| |")    << endl;
-        cout << Screen::center (" \\ \\/ /  | || |     | |    | |   | (_____ ( \\_____/ ") << endl;
-        cout << Screen::center ("  \\  /  _| || \\_____| |____| |___| |     | |  ___   ")  << endl;
-        cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
-        cout << endl << endl;
         switch (Gagnant) {
         case 0:
             Screen::Color (config.readString("KColorLose"));
-            cout << Screen::center ("Aucun vainqueur") << endl;
+            cout << Screen::center (" _____   _______ _______ _______        _______ ")                << endl;
+            cout << Screen::center ("(____ \\ (_______|_______|_______)  /\\  (_______)")  << endl;
+            cout << Screen::center (" _   \\ \\ _____   _____   _____    /  \\  _       ") << endl;
+            cout << Screen::center ("| |   | |  ___) |  ___) |  ___)  / /\\ \\| |      ")  << endl;
+            cout << Screen::center ("| |__/ /| |_____| |     | |_____| |__| | |_____ ")    << endl;
+            cout << Screen::center ("|_____/ |_______)_|     |_______)______|\\______)")   << endl;
+            cout << endl << endl;
+            cout << Screen::center ("ToT  Aucun vainqueur  ToT") << endl;
+            ++NbV;
+            score.WriteScoreFile(0, NbV);
             break;
         case 1:
+            Screen::Color (config.readString("KColorVictory"));
+            cout << Screen::center (" _    _ _____ ______ _______ _____  ______  _     _ ")    << endl;
+            cout << Screen::center ("| |  | (_____) _____|_______) ___ \\(_____ \\| |   | |")  << endl;
+            cout << Screen::center ("| |  | |  _ | /      _     | |   | |_____) ) |___| |")    << endl;
+            cout << Screen::center (" \\ \\/ /  | || |     | |    | |   | (_____ ( \\_____/ ") << endl;
+            cout << Screen::center ("  \\  /  _| || \\_____| |____| |___| |     | |  ___   ")  << endl;
+            cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
+            cout << endl << endl;
             cout << Screen::center ("Le Joueur n° 1 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
             score.WriteScoreFile(1, NbV);
             break;
         case 2:
+            Screen::Color (config.readString("KColorVictory"));
+            cout << Screen::center (" _    _ _____ ______ _______ _____  ______  _     _ ")    << endl;
+            cout << Screen::center ("| |  | (_____) _____|_______) ___ \\(_____ \\| |   | |")  << endl;
+            cout << Screen::center ("| |  | |  _ | /      _     | |   | |_____) ) |___| |")    << endl;
+            cout << Screen::center (" \\ \\/ /  | || |     | |    | |   | (_____ ( \\_____/ ") << endl;
+            cout << Screen::center ("  \\  /  _| || \\_____| |____| |___| |     | |  ___   ")  << endl;
+            cout << Screen::center ("   \\/  (_____)______)\\______)_____/      |_| (___)  ")  << endl;
+            cout << endl << endl;
             cout << Screen::center ("Le Joueur n° 2 a gagné la partie n° ") << ++NbV << " !" << endl << endl;
             score.WriteScoreFile(2, NbV);
             break;
@@ -212,18 +229,16 @@ int Game::ppal (const bool & SkipMenu)
             cout << Screen::center (text) << endl;
         for (const string & text : Screen::square ("2. Fuir et abdiquer..."))
             cout << Screen::center (text) << endl;
-        char choiceRe;
-        cin >> choiceRe;
+        char choiceRe (Screen::GetChoice ());
         switch (choiceRe) {
             case '1':
-                Screen::Color (Screen::getColor("Reset"));
-                Game::ppal (true);
-                break;
+                Screen::Color (Screen::getColor ("Reset"));
+                return Game::ppal (true);
             case '2':
-                Screen::Color (Screen::getColor("Reset"));
+                Screen::Color (Screen::getColor ("Reset"));
                 return 0;
             default:
-                cout << "Ayer la sincérité de fuir avec classe en appuyant sur 2 ..." << endl;
+                cout << Screen::center ("Ayer la sincérité de fuir avec classe en appuyant sur 2 ...") << endl;
                 return 0;
         }
     }
