@@ -21,12 +21,12 @@ void Score::WriteScoreFile (const unsigned & PlayerNb, const unsigned & NbV)
     if (0 == PlayerNb)
         this->scoreStream
                 << string (40, '=') << endl
-                << " Aucun Joueurs a gagné la partie n° " << NbV << "!" << endl
+                << " Aucun joueur n'a gagné la partie n° " << NbV << "!" << endl
                 << string (40, '=') << endl;
     else
         this->scoreStream
                 << string (40, '=') << endl
-                << " Le Joueur n°" << PlayerNb
+                << " Le joueur n°" << PlayerNb
                 << " a gagné la partie n° " << NbV << "!" << endl
                 << string (40, '=') << endl;
 } // Score::WriteScoreFile ()
