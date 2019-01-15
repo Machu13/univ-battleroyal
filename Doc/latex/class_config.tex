@@ -1,0 +1,149 @@
+\hypertarget{class_config}{}\section{Config Class Reference}
+\label{class_config}\index{Config@{Config}}
+
+
+class containing all the game\textquotesingle{}s parameters  
+
+
+
+
+{\ttfamily \#include $<$config.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{Indent}\textbf{ config.\+cpp}\par
+{\em \begin{DoxyAuthor}{Author}
+\{Maxime Minguella, Arthur Petre, Mathias Meyer, Hugo Panis, Vincent Lavernhe\}
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+14 janvier 2019 
+\end{DoxyDate}
+}\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_config_a16c54796accfc2d9ffe6ded6f8b9dde2}{Config} (\hyperlink{struct_c_config}{C\+Config} \&Param)
+\begin{DoxyCompactList}\small\item\em Constructor \+: Class manage configuration. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_config_a610f42bcbd3b590b961fa6de5ba5b968}\label{class_config_a610f42bcbd3b590b961fa6de5ba5b968}} 
+void \hyperlink{class_config_a610f42bcbd3b590b961fa6de5ba5b968}{Init\+Config} ()
+\begin{DoxyCompactList}\small\item\em Init\+Config \+: initialize default configuration. \end{DoxyCompactList}\item 
+void \hyperlink{class_config_aece9ad7b2f011e211ae9c82a7ae506bc}{Load\+Config} (const std\+::string \&File\+Name)
+\begin{DoxyCompactList}\small\item\em Loading of configuration. \end{DoxyCompactList}\item 
+int \hyperlink{class_config_aaf4d21cf2d2c0c2ca7666c2c360f70b6}{read\+Int32} (const std\+::string \&Val)
+\begin{DoxyCompactList}\small\item\em void looking for value \end{DoxyCompactList}\item 
+char \hyperlink{class_config_a554ca6c693d22e88fdc0a1e78eac0daf}{read\+Char} (const std\+::string \&Val)
+\begin{DoxyCompactList}\small\item\em read\+Char \+: recover config characters \end{DoxyCompactList}\item 
+const std\+::string \hyperlink{class_config_af6f437a43639fbcaaaa39ad5e4d3cba0}{read\+String} (const std\+::string \&Val)
+\begin{DoxyCompactList}\small\item\em read\+String \+: recover config string \end{DoxyCompactList}\item 
+\hyperlink{struct_c_config}{C\+Config} \hyperlink{class_config_a69e6510655afcb2b86e772cb67cb807a}{get\+Config} ()
+\begin{DoxyCompactList}\small\item\em get\+Config \+: return configuration file \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\subsection{Detailed Description}
+class containing all the game\textquotesingle{}s parameters 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_config_a16c54796accfc2d9ffe6ded6f8b9dde2}\label{class_config_a16c54796accfc2d9ffe6ded6f8b9dde2}} 
+\index{Config@{Config}!Config@{Config}}
+\index{Config@{Config}!Config@{Config}}
+\subsubsection{\texorpdfstring{Config()}{Config()}}
+{\footnotesize\ttfamily Config\+::\+Config (\begin{DoxyParamCaption}\item[{\hyperlink{struct_c_config}{C\+Config} \&}]{Param }\end{DoxyParamCaption})}
+
+
+
+Constructor \+: Class manage configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Param} & \+: settings \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_config_a69e6510655afcb2b86e772cb67cb807a}\label{class_config_a69e6510655afcb2b86e772cb67cb807a}} 
+\index{Config@{Config}!get\+Config@{get\+Config}}
+\index{get\+Config@{get\+Config}!Config@{Config}}
+\subsubsection{\texorpdfstring{get\+Config()}{getConfig()}}
+{\footnotesize\ttfamily \hyperlink{struct_c_config}{C\+Config} Config\+::get\+Config (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+get\+Config \+: return configuration file 
+
+\begin{DoxyReturn}{Returns}
+class of the config parameters 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_config_aece9ad7b2f011e211ae9c82a7ae506bc}\label{class_config_aece9ad7b2f011e211ae9c82a7ae506bc}} 
+\index{Config@{Config}!Load\+Config@{Load\+Config}}
+\index{Load\+Config@{Load\+Config}!Config@{Config}}
+\subsubsection{\texorpdfstring{Load\+Config()}{LoadConfig()}}
+{\footnotesize\ttfamily void Config\+::\+Load\+Config (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{File\+Name }\end{DoxyParamCaption})}
+
+
+
+Loading of configuration. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em File\+Name} & \+: config stream file \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_config_a554ca6c693d22e88fdc0a1e78eac0daf}\label{class_config_a554ca6c693d22e88fdc0a1e78eac0daf}} 
+\index{Config@{Config}!read\+Char@{read\+Char}}
+\index{read\+Char@{read\+Char}!Config@{Config}}
+\subsubsection{\texorpdfstring{read\+Char()}{readChar()}}
+{\footnotesize\ttfamily char Config\+::read\+Char (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{val }\end{DoxyParamCaption})}
+
+
+
+read\+Char \+: recover config characters 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Val} & \+: Char \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_config_aaf4d21cf2d2c0c2ca7666c2c360f70b6}\label{class_config_aaf4d21cf2d2c0c2ca7666c2c360f70b6}} 
+\index{Config@{Config}!read\+Int32@{read\+Int32}}
+\index{read\+Int32@{read\+Int32}!Config@{Config}}
+\subsubsection{\texorpdfstring{read\+Int32()}{readInt32()}}
+{\footnotesize\ttfamily int Config\+::read\+Int32 (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{Val }\end{DoxyParamCaption})}
+
+
+
+void looking for value 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Val} & \+: key of configuration \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_config_af6f437a43639fbcaaaa39ad5e4d3cba0}\label{class_config_af6f437a43639fbcaaaa39ad5e4d3cba0}} 
+\index{Config@{Config}!read\+String@{read\+String}}
+\index{read\+String@{read\+String}!Config@{Config}}
+\subsubsection{\texorpdfstring{read\+String()}{readString()}}
+{\footnotesize\ttfamily const std\+::string Config\+::read\+String (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{Val }\end{DoxyParamCaption})}
+
+
+
+read\+String \+: recover config string 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em Val} & \+: string \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+value of function in parameters 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Nos\+\_\+fichiers/\hyperlink{config_8h}{config.\+h}\item 
+Nos\+\_\+fichiers/config.\+cpp\end{DoxyCompactItemize}
