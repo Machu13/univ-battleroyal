@@ -46,8 +46,8 @@ vector<string> Screen::square (const string & text)
 
 char Screen::GetChoice ()
 {
-    string line;
-    getline (cin, line);
+    char choice;
+    cin.get (choice);
     cin.clear ();
-    return line[0];
+    return choice;
 }

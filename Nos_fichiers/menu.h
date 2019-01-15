@@ -16,12 +16,6 @@ class Menu
 {
 private:
     /**
-     * @brief GetChoice
-     * @return
-     */
-    static char GetChoice ();
-
-    /**
      * @brief MovePointer
      * @param choice
      * @param nbr

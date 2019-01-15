@@ -11,13 +11,6 @@
 
 using namespace std;
 
-char Menu::GetChoice ()
-{
-    char tmp;
-    cin >> tmp;
-    return tmp;
-}
-
 void Menu::MovePointer (char & choice, unsigned & nbr, const unsigned & max)
 {
     if (tolower(choice) == 'z')
@@ -112,7 +105,7 @@ void Menu::ShowConfig ()
     for (auto & val : config.getConfig().MapParamUnsigned)
         cout << val.first << " = " << val.second << endl;
     cout << "[RETURN ESC]";
-    GetChoice();
+    Screen::GetChoice ();
 }
 
 void Menu::CreditsMenu ()
@@ -142,7 +135,7 @@ void Menu::ShowConfigMenu ()
     while (true) {
         Screen::ClearScreen ();
         ConfigMenu (nbr);
-        char choice = GetChoice();
+        char choice = Screen::GetChoice ();
         MovePointer (choice, nbr, 4);
         switch (choice) {
         case '1':
@@ -166,7 +159,7 @@ void Menu::ShowCreditsMenu ()
     Screen::ClearScreen();
     CreditsMenu();
     cout << "[RETURN ESC]";
-    GetChoice();
+    Screen::GetChoice ();
 }
 
 void Menu::ShowPecheMignonDeMarc ()
@@ -190,7 +183,7 @@ void Menu::ShowPecheMignonDeMarc ()
         Screen::Color (Screen::getColor ("Reset"));
     }
     cout << endl << "[RETURN ESC]";
-    GetChoice();
+    Screen::GetChoice ();
 }
 
 void Menu::ShowMainMenu ()
@@ -199,7 +192,7 @@ void Menu::ShowMainMenu ()
     while (true) {
         Screen::ClearScreen();
         MainMenu(nbr);
-        char choice = GetChoice();
+        char choice = Screen::GetChoice ();
         MovePointer (choice, nbr, 5);
         switch (choice) {
         case '1':

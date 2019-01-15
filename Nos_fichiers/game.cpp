@@ -108,8 +108,7 @@ int Game::ppal (const bool & SkipMenu)
         Screen::Color (Screen::getColor ("Reset"));
 
         bool CorrectMove (false);
-        char Move;
-        cin >> Move;
+        char Move (Screen::GetChoice ());
         Move = toupper (Move);
         regex pattern ("^Key");
         // Beaucoup de complexitude pour pas grand chose.
